@@ -1,20 +1,30 @@
 # My FIRST Arduino Project
 
-## Description
+## parts on Arduino house
 
-- Point 1
-- Point 2
+- button
+- another button
+- RFID tag reader
+- LCD
+- montion sensor
+- servo (door)
+- another servo (window)
+- gas sensor
+- temp sensor
+- moister sensor
+- LED
+- fan
+- music buzzer
 
 - [ ] My check box empty
 - [x] My check box checked
-- [ ] another test box 
 
 ## steps to update repo
 
 1. local changes 
 2. create branch `git checkout -b experiment/readme2`
 3. Add files to staging `git add .`
-4. Create commit `git commit -m "My commit message <what is changing>"
+4. Create commit `git commit -m` "My commit message <what is changing>"
 5. Make more changes, and stage commit additional changes. (commit often, push when ready)
 6. Push new branch to origin `git push origin experiment/readme2`
 7. Go to website and review code and merge when ready.
