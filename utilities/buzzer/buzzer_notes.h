@@ -69,51 +69,51 @@ const Note NOTES[] = {
 const SongStep ODE_TO_JOY[] = {
   // time 4/4
   // Bar 1
-  {587, LEN_QUARTER},   // C5
-  {587, LEN_QUARTER},   // C5
-  {642, LEN_QUARTER},   // D5
-  {697, LEN_QUARTER},   // E5
+  {523, LEN_QUARTER},   // C5
+  {523, LEN_QUARTER},   // C5
+  {587, LEN_QUARTER},   // D5
+  {659, LEN_QUARTER},   // E5
 
   // Bar 2
-  {697, LEN_QUARTER},   // E5
-  {642, LEN_QUARTER},   // D5
-  {587, LEN_QUARTER},   // C5
-  {532, LEN_QUARTER},   // B4
+  {659, LEN_QUARTER},   // E5
+  {587, LEN_QUARTER},   // D5
+  {523, LEN_QUARTER},   // C5
+  {494, LEN_QUARTER},   // B4
 
   // Bar 3
-  {587, LEN_QUARTER},   // C5 (original had C5 here; A4 per strict melody)
-  {587, LEN_QUARTER},   // C5
-  {642, LEN_QUARTER},   // D5
-  {697, LEN_QUARTER},   // E5
+  {440, LEN_QUARTER},   // A4 (original had C5 here; A4 per strict melody)
+  {523, LEN_QUARTER},   // C5
+  {587, LEN_QUARTER},   // D5
+  {659, LEN_QUARTER},   // E5
 
   // Bar 4
-  {697, LEN_HALF},      // E5
-  {642, LEN_EIGHTH},    // D5
-  {642, LEN_HALF},      // D5
+  {659, LEN_HALF},      // E5
+  {587, LEN_EIGHTH},    // D5
+  {587, LEN_HALF},      // D5
   {  0, LEN_QUARTER},   // rest
 
   // Bar 5
-  {587, LEN_QUARTER},   // C5
-  {587, LEN_QUARTER},   // C5
-  {642, LEN_QUARTER},   // D5
-  {697, LEN_QUARTER},   // E5
+  {523, LEN_QUARTER},   // C5
+  {523, LEN_QUARTER},   // C5
+  {587, LEN_QUARTER},   // D5
+  {659, LEN_QUARTER},   // E5
 
   // Bar 6
-  {697, LEN_QUARTER},   // E5
-  {642, LEN_QUARTER},   // D5
-  {587, LEN_QUARTER},   // C5
-  {532, LEN_QUARTER},   // B4
+  {659, LEN_QUARTER},   // E5
+  {659, LEN_QUARTER},   // D5
+  {523, LEN_QUARTER},   // C5
+  {494, LEN_QUARTER},   // B4
 
   // Bar 7
-  {587, LEN_QUARTER},   // C5
-  {587, LEN_QUARTER},   // C5
-  {642, LEN_QUARTER},   // D5
-  {697, LEN_QUARTER},   // E5
+  {523, LEN_QUARTER},   // C5
+  {523, LEN_QUARTER},   // C5
+  {587, LEN_QUARTER},   // D5
+  {659, LEN_QUARTER},   // E5
 
   // Bar 8
-  {642, LEN_HALF},      // D5
-  {587, LEN_EIGHTH},    // C5
-  {587, LEN_HALF}       // C5
+  {587, LEN_HALF},      // D5
+  {523, LEN_EIGHTH},    // C5
+  {523, LEN_HALF}       // C5
 };
 
 #endif // BUZZER_NOTES_H
