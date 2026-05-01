@@ -1,5 +1,6 @@
 #include <BuzzerESP32.h>
-#include "buzzer_notes.h"
+//#include "buzzer_notes.h"
+#include "buzzer_songs.h"
 
 #define BUZZER_PIN   25
 #define BUTTON_PIN   16
@@ -20,6 +21,41 @@ void playSong(const SongStep* song, int length) {
       buzzer.playTone(song[i].freq, song[i].duration);
     }
   }
+}
+
+// ------------------------------------------------
+// playSoung2 - alternative, allows for BPM choice
+// ------------------------------------------------
+
+void playSong2(const SongStep* song, int bpm) {
+  for (auto &step : song) {
+    uint32_t dur = (uint32_t)step.duration * ticksMs(bpm);
+    if (step.freq == 0) {
+      buzzer.stop();  // arbitrary
+      delay(dur)
+    } else {
+      if (step.slur == 1){
+        buzzer.playTone(step.freq, step.duration);
+      } else {
+        // induce slight separation by shaving 10 ms
+        buzzer.playTone(step.freq, step.duration - 10)
+      }
+    }
+  }
+}
+
+// convert ticks to milliseconds:
+// quarter note duration (ms) = 60000 / BPM
+// 1/16 note (tick) = (60000 / BPM) / 4 = 15000 / BPM
+//
+// as math (for clarity):
+// 1 tick (ms) = 60000 / BPM * (1/4)
+// indicate to compiler the intent to convert long to int
+uint16_t tickMs(int bpm) {
+  unsigned long t = 60000UL / bpm / 4;
+  // uint16_t tms = t  // implicit cast can make the compiler compain, but could work
+  uint32_t tms = static_cast<uint16_t>(t);
+  return tms;
 }
 
 // ---------------------------------------------------------------------------
@@ -66,10 +102,11 @@ void setup() {
  // buzzer.
   //pinMode(BUTTON_PIN, INPUT_PULLUP);
 
-  runTuner();
+  //runTuner();
 
   // Uncomment to play Ode to Joy after tuning completes:
   // playSong(ODE_TO_JOY, ARRAY_LENGTH(ODE_TO_JOY));
+  playSong2(ODE_TO_JOY, 120)
 }
 
 void loop() {
