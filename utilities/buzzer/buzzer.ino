@@ -54,7 +54,7 @@ void playSong2(const SongStep* song, int bpm) {
 uint16_t tickMs(int bpm) {
   unsigned long t = 60000UL / bpm / 4;
   // uint16_t tms = t  // implicit cast can make the compiler compain, but could work
-  uint32_t tms = static_cast<uint16_t>(t);
+  uint32_t tms = static_cast<uint32_t>(t);
   return tms;
 }
 
