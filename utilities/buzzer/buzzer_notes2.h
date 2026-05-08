@@ -2,6 +2,9 @@
 
 #ifndef BUZZER_NOTES_H
 #define BUZZER_NOTES_H
+#endif
+
+
 
 #define REST 0
 // =============================================================
@@ -14,44 +17,45 @@
 // =============================================================
 
 // --- Octave 4 ---
-#define C4      262     // C4  = 261.63 Hz
-#define Cs4     277     // C#4 = 277.18 Hz
-#define Db4     277     // Db4 = 277.18 Hz  (enharmonic of C#4)
-#define D4      294     // D4  = 293.66 Hz
-#define Ds4     311     // D#4 = 311.13 Hz
-#define Eb4     311     // Eb4 = 311.13 Hz  (enharmonic of D#4)
-#define E4      330     // E4  = 329.63 Hz
-// no e-sharp or f-flat
-#define F4      349     // F4  = 349.23 Hz
-#define Fs4     370     // F#4 = 369.99 Hz
-#define Gb4     370     // Gb4 = 369.99 Hz  (enharmonic of F#4)
-#define G4      392     // G4  = 392.00 Hz
-#define Gs4     415     // G#4 = 415.30 Hz
-#define Ab4     415     // Ab4 = 415.30 Hz  (enharmonic of G#4)
-#define A4      440     // A4  = 440.00 Hz
-#define As4     466     // A#4 = 466.16 Hz
-#define Bb4     466     // Bb4 = 466.16 Hz  (enharmonic of A#4)
-#define B4      494     // B4  = 493.88 Hz
-
-// --- Octave 5 ---
-#define C5      523     // C5  = 523.25 Hz
-#define Cs5     554     // C#5 = 554.37 Hz
-#define Db5     554     // Db5 = 554.37 Hz  (enharmonic of C#5)
-#define D5      587     // D5  = 587.33 Hz
-#define Ds5     622     // D#5 = 622.25 Hz
-#define Eb5     622     // Eb5 = 622.25 Hz  (enharmonic of D#5)
-#define E5      659     // E5  = 659.25 Hz
-// no e-sharp or f-flat
-#define F5      698     // F5  = 698.46 Hz
-#define Fs5     740     // F#5 = 739.99 Hz
-#define Gb5     740     // Gb5 = 739.99 Hz  (enharmonic of F#5)
-#define G5      784     // G5  = 783.99 Hz
-#define Gs5     831     // G#5 = 830.61 Hz
-#define Ab5     831     // Ab5 = 830.61 Hz  (enharmonic of G#5)
-#define A5      880     // A5  = 880.00 Hz
-#define As5     932     // A#5 = 932.33 Hz
-#define Bb5     932     // Bb5 = 932.33 Hz  (enharmonic of A#5)
-#define B5      988     // B5  = 987.77 Hz
+// --- Octave  
+#define C4 ((uint8_t)262)  // C4 = 261.63 Hz
+#define Cs4 ((uint8_t)277)  // C#4 = 277.18 Hz
+#define Db4 ((uint8_t)277)  // Db4 = 277.18 Hz
+#define D4 ((uint8_t)294)  // D4 = 293.66 Hz
+#define Ds4 ((uint8_t)311)  // D#4 = 311.13 Hz
+#define Eb4 ((uint8_t)311)  // Eb4 = 311.13 Hz
+#define E4 ((uint8_t)330)  // E4 = 329.63 Hz
+// no e-sharp       
+#define F4 ((uint8_t)349)  // F4 = 349.23 Hz
+#define Fs4 ((uint8_t)370)  // F#4 = 369.99 Hz
+#define Gb4 ((uint8_t)370)  // Gb4 = 369.99 Hz
+#define G4 ((uint8_t)392)  // G4 = 392 Hz
+#define Gs4 ((uint8_t)415)  // G#4 = 415.3 Hz
+#define Ab4 ((uint8_t)415)  // Ab4 = 415.3 Hz
+#define A4 ((uint8_t)440)  // A4 = 440 Hz
+#define As4 ((uint8_t)466)  // A#4 = 466.16 Hz
+#define Bb4 ((uint8_t)466)  // Bb4 = 466.16 Hz
+#define B4 ((uint8_t)494)  // B4 = 493.88 Hz
+       
+// --- Octave       
+#define C5 ((uint8_t)523)  // C5 = 523.25 Hz
+#define Cs5 ((uint8_t)554)  // C#5 = 554.37 Hz
+#define Db5 ((uint8_t)554)  // Db5 = 554.37 Hz
+#define D5 ((uint8_t)587)  // D5 = 587.33 Hz
+#define Ds5 ((uint8_t)622)  // D#5 = 622.25 Hz
+#define Eb5 ((uint8_t)622)  // Eb5 = 622.25 Hz
+#define E5 ((uint8_t)659)  // E5 = 659.25 Hz
+// no e-sharp       
+#define F5 ((uint8_t)698)  // F5 = 698.46 Hz
+#define Fs5 ((uint8_t)740)  // F#5 = 739.99 Hz
+#define Gb5 ((uint8_t)740)  // Gb5 = 739.99 Hz
+#define G5 ((uint8_t)784)  // G5 = 783.99 Hz
+#define Gs5 ((uint8_t)831)  // G#5 = 830.61 Hz
+#define Ab5 ((uint8_t)831)  // Ab5 = 830.61 Hz
+#define A5 ((uint8_t)880)  // A5 = 880 Hz
+#define As5 ((uint8_t)932)  // A#5 = 932.33 Hz
+#define Bb5 ((uint8_t)932)  // Bb5 = 932.33 Hz
+#define B5 ((uint8_t)988)  // B5 = 987.77 Hz
 
 // Note lengths in ticks (defining a "tick" as 1/16th note)
 // This will allow us to control BPM

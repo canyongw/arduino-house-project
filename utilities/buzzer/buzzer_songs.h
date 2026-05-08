@@ -2,8 +2,11 @@
 
 #ifndef BUZZER_SONGS_H
 #define BUZZER_SONGS_H
+#endif
 
-#include "notes.h"
+#define ARRAY_LENGTH(arr) (sizeof(arr) / sizeof(arr[0]))
+
+#include "buzzer_notes2.h"
 
 struct SongStep {
   uint8_t freq;  // uint8_t saves memory vs int
@@ -20,8 +23,8 @@ const SongStep ODE_TO_JOY[] PROGMEM = {
   {Bb4, LEN_QUARTER, 1},
   {C5, LEN_QUARTER, 0},
   // bar 2
-  {C5, LEN_QUARTER, 0}
-  {Bb4, LEN_QUARTER, 0}
+  {C5, LEN_QUARTER, 0},
+  {Bb4, LEN_QUARTER, 0},
   {A4, LEN_QUARTER, 1},
   {G4, LEN_QUARTER, 0},
   // bar 3
@@ -40,8 +43,8 @@ const SongStep ODE_TO_JOY[] PROGMEM = {
   {Bb4, LEN_QUARTER, 0},
   {C5, LEN_QUARTER, 0},
   // bar 6
-  {C5, LEN_QUARTER, 0}
-  {Bb4, LEN_QUARTER, 0}
+  {C5, LEN_QUARTER, 0},
+  {Bb4, LEN_QUARTER, 0},
   {A4, LEN_QUARTER, 0},
   {G4, LEN_QUARTER, 0},
   // bar 7
@@ -97,5 +100,5 @@ const SongStep ODE_TO_JOY[] PROGMEM = {
   {F4, LEN_EIGHTH, 0},
   {F4, LEN_HALF, 0},
   // end
-  {N_REST, LEN_QUARTER, 0},
+  {REST, LEN_QUARTER, 0}
 };
