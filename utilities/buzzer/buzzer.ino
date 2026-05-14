@@ -27,8 +27,8 @@ BuzzerESP32 buzzer(BUZZER_PIN);
 // playSoung2 - alternative, allows for BPM choice
 // ------------------------------------------------
 
-void playSong2(const SongStep* song, int bpm) {
-  int noteCount = ARRAY_LENGTH(song);
+void playSong2(const SongStep* song, int bpm, int noteCount) {
+  //int noteCount = ARRAY_LENGTH(song);
   Serial.print("NoteCount: ");
   Serial.println(noteCount);
   for (int i = 0; i < noteCount; i++) {
@@ -60,7 +60,7 @@ void playSong2(const SongStep* song, int bpm) {
 // as math (for clarity):
 // 1 tick (ms) = 60000 / BPM * (1/4)
 // indicate to compiler the intent to convert long to int
-uint16_t ticksToMs(int bpm) {
+uint32_t ticksToMs(int bpm) {
   unsigned long t = 60000UL / bpm / 4;
   // uint16_t tms = t  // implicit cast can make the compiler complain, but could work
   uint32_t tms = static_cast<uint32_t>(t);
@@ -107,7 +107,9 @@ uint16_t ticksToMs(int bpm) {
 
 void setup() {
   Serial.begin(9600);
+  delay(1000);
   buzzer.setTimbre(30);
+  Serial.println("setup complete!");
  // buzzer.
   //pinMode(BUTTON_PIN, INPUT_PULLUP);
 
@@ -115,7 +117,7 @@ void setup() {
 
   // Uncomment to play Ode to Joy after tuning completes:
   // playSong(ODE_TO_JOY, ARRAY_LENGTH(ODE_TO_JOY));
-  playSong2(ODE_TO_JOY, 120);
+  playSong2(ODE_TO_JOY, 200, ARRAY_LENGTH(ODE_TO_JOY));
 }
 
 void loop() {

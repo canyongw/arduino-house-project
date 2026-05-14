@@ -2,14 +2,14 @@
 
 #ifndef BUZZER_SONGS_H
 #define BUZZER_SONGS_H
-#endif
+
 
 #define ARRAY_LENGTH(arr) (sizeof(arr) / sizeof(arr[0]))
 
 #include "buzzer_notes2.h"
 
 struct SongStep {
-  uint8_t freq;  // uint8_t saves memory vs int
+  uint16_t freq;  // uint8_t saves memory vs int
   uint8_t ticks; // number of 1/16 notes
   bool slur; // true or false to slur/tie notes
 };
@@ -102,3 +102,4 @@ const SongStep ODE_TO_JOY[] PROGMEM = {
   // end
   {REST, LEN_QUARTER, 0}
 };
+#endif
