@@ -117,7 +117,7 @@ void setup() {
 
   // Uncomment to play Ode to Joy after tuning completes:
   // playSong(ODE_TO_JOY, ARRAY_LENGTH(ODE_TO_JOY));
-  playSong2(ODE_TO_JOY, 200, ARRAY_LENGTH(ODE_TO_JOY));
+  playSong2(THE_CAN_CAN, 200, ARRAY_LENGTH(ODE_TO_JOY));
 }
 
 void loop() {

@@ -102,4 +102,69 @@ const SongStep ODE_TO_JOY[] PROGMEM = {
   // end
   {REST, LEN_QUARTER, 0}
 };
+const SongStep THE_CAN_CAN[] PROGMEM = { //!@*&#^*^#!*&^#*&^#*&@#*&!@#^!^#@*&!@&@&*
+    // bar 1
+  {C5, LEN_QUARTER, 0},
+  {C5, LEN_QUARTER, 0},
+  {D5, LEN_EIGHTH, 1},
+  {F5, LEN_EIGHTH, 0},
+  // bar 2
+  {E5, LEN_EIGHTH, 0},
+  {D5, LEN_EIGHTH, 0},
+  {G5, LEN_QUARTER, 1},
+  {G5, LEN_QUARTER, 0},
+  // bar 3
+   {G5, LEN_QUARTER, 0},
+   {A5, LEN_QUARTER, 0},
+   {E5, LEN_QUARTER, 0},
+   {F5, LEN_QUARTER, 0},
+   // bar 4
+  //  {A4, LEN_QUARTER + LEN_EIGHTH, 0},
+  // {G5, LEN_EIGHTH, 0},
+  // {G5, LEN_HALF, 0},
+  
+  // // bar 5
+  // {A4, LEN_QUARTER, 0},
+  // {A4, LEN_QUARTER, 0},
+  // {Bb4, LEN_QUARTER, 0},
+  // {C5, LEN_QUARTER, 0},
+  // // bar 6
+  // {C5, LEN_QUARTER, 0},
+  // {Bb4, LEN_QUARTER, 0},
+  // {A4, LEN_QUARTER, 0},
+  // {G4, LEN_QUARTER, 0},
+  // // bar 7
+  // {F4, LEN_QUARTER, 0},
+  // {F4, LEN_QUARTER, 0},
+  // {G4, LEN_QUARTER, 0},
+  // {A4, LEN_QUARTER, 0},
+  // // bar 8
+  // {G4, LEN_QUARTER +  LEN_EIGHTH, 0},
+  // {F4, LEN_EIGHTH, 0},
+  // {F4, LEN_HALF, 0},
+  
+  // // bar 9
+  // {G4, LEN_QUARTER, 0},
+  // {G4, LEN_QUARTER, 0},
+  // {A4, LEN_QUARTER, 0},
+  // {F4, LEN_QUARTER, 0},
+  // // bar 10
+  // {G4, LEN_QUARTER, 0},
+  // {A4, LEN_EIGHTH, 1},
+  // {Bb4, LEN_EIGHTH, 0},
+  // {A4, LEN_QUARTER, 0},
+  // {F4, LEN_QUARTER, 0},
+  // // bar 11
+  // {G4, LEN_QUARTER, 0},
+  // {A4, LEN_EIGHTH, 1},
+  // {Bb4, LEN_EIGHTH, 0},
+  // {A4, LEN_QUARTER, 0},
+  // {G4, LEN_QUARTER, 0},
+  // // bar 12
+  // {F4, LEN_QUARTER, 1},
+  // {G4, LEN_QUARTER, 0},
+  // {C4, LEN_QUARTER, 0},
+  // {A4, LEN_QUARTER, 1},
+  // // bar 13
+};
 #endif
