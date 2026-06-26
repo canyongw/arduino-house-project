@@ -1,188 +1,125 @@
 #include <BuzzerESP32.h>
+//#include "buzzer_notes.h"
+#include "buzzer_songs.h"
 
-BuzzerESP32 buzzer(25); // Initialize buzzer on GPIO25
+#define BUZZER_PIN   25
+#define BUTTON_PIN   16
+#define TUNE_SWEEP   30   // ±Hz around each note's approximate freq
+#define TUNE_STEP_MS 300  // ms per frequency step during sweep
 
-/*
-void setup_tones(){
-  //#define A3 92  
-  #define B3 147
-  #define C4 202
-  #define D4 257
-  #define E4 532 
-  #define F4 312 
-  #define G4 367
-  #define A4 422  
-  #define B4 477
-  #define C5 532  // middle c
-  #define D5 587
-  #define E5 642 
-  #define F5 697
-  #define G5 752
-  #define A5 807   
-  #define B5 862
-  #define C6 917  
-}
-*/
+BuzzerESP32 buzzer(BUZZER_PIN);
 
-/*
-void note_leangth(){
-  #define sixteenth 75
-  #define eighth 150
-  #define quarter 300
-  #define half 600
-  #define whole 1200
-}
-*/
+// ---------------------------------------------------------------------------
+// playSong — play an array of SongSteps; freq == 0 is treated as a rest
+// ---------------------------------------------------------------------------
 
-//[3 (number of rows),4 (number of columns)]
-//     name   freq
-//1    "A3"   90
-//2
-//3
+// void playSong(const SongStep* song, int length) {
+//   for (int i = 0; i < length; i++) {
+//     if (song[i].freq == 0) {
+//       delay(song[i].duration);
+//     } else {
+//       buzzer.playTone(song[i].freq, song[i].duration);
+//     }
+//   }
+// }
 
-//[16 note]
-//    note
-//    note1
-//    note2
+// ------------------------------------------------
+// playSoung2 - alternative, allows for BPM choice
+// ------------------------------------------------
 
-class Note{
-  public:
-    int freq;
-    String name;
-    // instantiation construtor
-    Note(String name_, int freq_) : freq(freq_), name(name_) {}
-};
-
-#define ARRAY_LENGTH(arrayName) (sizeof(arrayName) / sizeof(arrayName[0]))
-#define testLength 100
-
-void test_tuner(){
-  /* 
-  *Note notes[] = {
-    new Note("A3", 92),
-    new Note("A4", 422),
-    new Note("B5", 862),
-  };
-  */
-
-  Note notes[] = {
-    {"A3", 92},
-    //{"A4", 422},
-    //{"B5", 862},
-  };
-  
-
-  int arrlen = ARRAY_LENGTH(notes);
-  for (int i = 0; i < arrlen; i++){
-     Note cNote = notes[i];
-     int noteLow = cNote.freq - 30;
-     int noteHigh = cNote.freq + 30;
-     //buzzer.playTone(cNote.freq);
-     for (int f = noteLow; f <= noteHigh; f++){
-      buzzer.playTone(f,testLength);
-      //watching for push button
-      //if button push then 
-      Serial.print("Note ");
-      Serial.print(cNote.name);
-      Serial.print(" captured | Freq: ");
-      Serial.print(f);
-      Serial.print(" Original Freq: ");
-      Serial.println(cNote.freq);
-     }
-
-  }
-}
-
-class BuzzerNotesClass {
-  private:
-    int octave;
-  public:
-    BuzzerNotesClass(int initialoctave){
-      octave = initialoctave;
+void playSong2(const SongStep* song, int bpm, int noteCount) {
+  //int noteCount = ARRAY_LENGTH(song);
+  Serial.print("NoteCount: ");
+  Serial.println(noteCount);
+  for (int i = 0; i < noteCount; i++) {
+    const SongStep step = song[i];
+    uint32_t dur = (uint32_t)step.ticks * ticksToMs(bpm);
+    Serial.print("NoteFreq: ");
+    Serial.println(step.freq);
+    Serial.print("Duration: ");
+    Serial.println(dur);
+    if (step.freq == 0) {
+      buzzer.stop();  // arbitrary
+      delay(dur);
+    } else {
+      if (step.slur == 1){
+        buzzer.playTone(step.freq, dur);
+      } else {
+        // induce slight separation by shaving 10 ms
+        buzzer.playTone(step.freq, dur - 10);
+        delay(10);
+      }
     }
-
-    //collection of notes added here
-};
-
-BuzzerNotesClass bn(3);
-
-struct BNLength {
-  int sixteenth = 75;
-  int eighth = 150;
-  int quarter = 300;
-  int half = 600;
-  int whole = 1200;
-};
-
-struct BNNote {
-  int A3;
-  int B3;
-  int C4;
-  int D4;
-  int E4;
-  int F4;
-  int G4;
-  int A4;
-};
-
-
-
-
-/*
-void ode_to_joy(){
-  //buzzer.playTone(C5,quarter);
-  buzzer.playTone(C5,BNLength.quarter);
-  buzzer.playTone(C5,quarter);
-  buzzer.playTone(D5,quarter);
-  buzzer.playTone(E5,quarter);
-  buzzer.playTone(E5,quarter);
-  buzzer.playTone(D5,quarter);
-  buzzer.playTone(C5,quarter);
-  buzzer.playTone(B4,quarter);
-  buzzer.playTone(C5,quarter);
-  buzzer.playTone(C5,quarter);
-  buzzer.playTone(D5,quarter);
-  buzzer.playTone(E5,quarter);
-  buzzer.playTone(E5,half);
-  buzzer.playTone(D5,eighth);
-  buzzer.playTone(D5,half);
-  delay (quarter); // rest
-  buzzer.playTone(C5,quarter);
-  buzzer.playTone(C5,quarter);
-  buzzer.playTone(D5,quarter);
-  buzzer.playTone(E5,quarter);
-  buzzer.playTone(E5,quarter);
-  buzzer.playTone(D5,quarter);
-  buzzer.playTone(C5,quarter);
-  buzzer.playTone(B4,quarter);
-  buzzer.playTone(C5,quarter);
-  buzzer.playTone(C5,quarter);
-  buzzer.playTone(D5,quarter);
-  buzzer.playTone(E5,quarter);
-  buzzer.playTone(D5,half);
-  buzzer.playTone(C5,eighth);
-  buzzer.playTone(C5,half);
   }
-*/
+}
 
+// convert ticks to milliseconds:
+// quarter note duration (ms) = 60000 / BPM
+// 1/16 note (tick) = (60000 / BPM) / 4 = 15000 / BPM
+//
+// as math (for clarity):
+// 1 tick (ms) = 60000 / BPM * (1/4)
+// indicate to compiler the intent to convert long to int
+uint32_t ticksToMs(int bpm) {
+  unsigned long t = 60000UL / bpm / 4;
+  // uint16_t tms = t  // implicit cast can make the compiler complain, but could work
+  uint32_t tms = static_cast<uint32_t>(t);
+  return tms;
+}
 
+// ---------------------------------------------------------------------------
+// runTuner — sweep each note in NOTES[] and capture on button press
+// ---------------------------------------------------------------------------
 
+// void runTuner() {
+//   pinMode(BUTTON_PIN, INPUT_PULLUP);
 
-void setup()
-{
+//   int noteCount = ARRAY_LENGTH(NOTES);
+
+//   for (int i = 0; i < noteCount; i++) {
+//     const Note& n = NOTES[i];
+//     int freqLow  = n.freq - TUNE_SWEEP;
+//     int freqHigh = n.freq + TUNE_SWEEP;
+//     Serial.print("Starting note ");
+//     Serial.println(n.name);
+
+//     for (int f = freqLow; f <= freqHigh; f++) {
+//       buzzer.playTone(f, TUNE_STEP_MS);
+
+//       if (digitalRead(BUTTON_PIN) == LOW) {
+//         Serial.print("Captured note ");
+//         Serial.print(n.name);
+//         Serial.print(" captured | Freq: ");
+//         Serial.print(f);
+//         Serial.print(" | Original Freq: ");
+//         Serial.println(n.freq);
+
+//         delay(900); // debounce
+//         break;      // advance to next note
+//       }
+//     }
+//   }
+// }
+
+// ---------------------------------------------------------------------------
+// setup / loop
+// ---------------------------------------------------------------------------
+
+void setup() {
   Serial.begin(9600);
-  buzzer.setTimbre(30); // Set timbre (sound quality)
-  //setup_tones();
-  //note_length();
-  //ode_to_joy();
-  test_tuner();
+  delay(1000);
+  buzzer.setTimbre(30);
+  Serial.println("setup complete!");
+ // buzzer.
+  //pinMode(BUTTON_PIN, INPUT_PULLUP);
+
+  //runTuner();
+
+  // Uncomment to play Ode to Joy after tuning completes:
+  // playSong(ODE_TO_JOY, ARRAY_LENGTH(ODE_TO_JOY));
+  playSong2(THE_CAN_CAN, 200, ARRAY_LENGTH(ODE_TO_JOY));
 }
-void loop(){
 
+void loop() {
+  // empty — all work done in setup
 }
-
-  
-
-
-
-
