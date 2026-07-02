@@ -7,7 +7,6 @@
 #define TUNE_SWEEP   30   // ±Hz around each note's approximate freq
 #define TUNE_STEP_MS 300  // ms per frequency step during sweep
 
-BuzzerESP32 buzzer(BUZZER_PIN);
 
 // ---------------------------------------------------------------------------
 // playSong — play an array of SongSteps; freq == 0 is treated as a rest
