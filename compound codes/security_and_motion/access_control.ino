@@ -1,8 +1,8 @@
 
 
-void doorCloseRequest(){
 
-  if ( ! mfrc522.PICC_IsNewCardPresent() || ! mfrc522.PICC_ReadCardSerial() ) {
+void readCard(){
+if ( ! mfrc522.PICC_IsNewCardPresent() || ! mfrc522.PICC_ReadCardSerial() ) {
     delay(50);
     password = "";
     if(btnFlag == 1)
@@ -13,18 +13,16 @@ void doorCloseRequest(){
         mylcd.clear();
         Serial.println("close");
         mylcd.setCursor(0, 0);
-        mylcd.print("closing");
+        mylcd.print("closeing");
         myservo.write(0);
         btnFlag = 0;
       }
     }
     return;
   }
-}
 
+  // select one of door cards. UID and SAK are mfrc522.uid.
 
-void readCard(){
-// select one of door cards. UID and SAK are mfrc522.uid.
   // save UID
   Serial.print(F("Card UID:"));
   for (byte i = 0; i < mfrc522.uid.size; i++) {
@@ -56,15 +54,12 @@ void readCard(){
   {
     password = "";
     mylcd.setCursor(0, 0);
-    mylcd.print("declined!");
+    mylcd.print("error");
 
   }
   //Serial.println(password);
 }
-
-
-
-
+//*****************************************************************
 
 void ShowReaderDetails() {
   //  attain the MFRC522 software
@@ -83,4 +78,8 @@ void ShowReaderDetails() {
     Serial.println(F("WARNING: Communication failure, is the MFRC522 properly connected?"));
   }
 }
-//*****************************************************************
+//**********************************************************************************
+
+
+
+

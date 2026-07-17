@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <BuzzerESP32.h>
@@ -36,8 +43,6 @@ void setup() {
   mfrc522.PCD_Init();             // initialize MFRC522
   ShowReaderDetails();            // dispaly PCD - MFRC522 read carder
   Serial.println(F("Scan PICC to see UID, type, and data blocks..."));
-  btnFlag = 0; 
-  password = "";
 
     // Allow allocation of all timers
     ESP32PWM::allocateTimer(0);
@@ -63,9 +68,10 @@ void setup() {
 }
 
 void loop() {
-  //
-   doorCloseRequest();
+
    readCard();
+   detectMotion();
+   delay (200);
   
 }
 
