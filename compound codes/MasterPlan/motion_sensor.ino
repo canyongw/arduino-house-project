@@ -1,54 +1,40 @@
+#include <chrono>
+#include <Arduino.h>
 
+auto MOTIONSTART = std::chrono::steady_clock::now();
+boolean MOTIONDETECT = 0;
+const auto MOTIONTIMELIMIT = std::chrono::seconds(10);
 
-#include <Adafruit_NeoPixel.h>
-#ifdef __AVR__
- #include <avr/power.h>                              // Required for 16 MHz Adafruit Trinket
-#endif
-
-#include <LiquidCrystal_I2C.h>
-LiquidCrystal_I2C mylcd(0x27,16,2);
-
-
-#define motion_pin 14
-
-#define LED_PIN    26                                // Which pin on the Arduino is connected to the NeoPixels?
-#define LED_COUNT 4                                  // How many NeoPixels are attached to the Arduino?
-Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800); // Declare our NeoPixel strip object:
-
-void setup() {
-  Serial.begin(9600);
-
-  mylcd.init(); // lcd setup
-  mylcd.backlight();
-  mylcd.setCursor(0, 0);
-
-  pinMode(motion_pin, INPUT);//motion pin
-#if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
-  clock_prescale_set(clock_div_1);                   // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
-#endif
-  strip.begin();                                     // INITIALIZE NeoPixel strip object (REQUIRED)
-  strip.show();                                      // Turn OFF all pixels ASAP
-  strip.setBrightness(250);                           // Set BRIGHTNESS to about 1/5 (max = 255)
-}
-
-void loop() {
+void detectMotion(){
   boolean pyroelectric_val = digitalRead(motion_pin);
-  Serial.print("pyroelectric value  = ");
-  Serial.println(pyroelectric_val);
   if (pyroelectric_val){
-  //floodLight(10);
-    mylcd.print("MOTION!");
-    theaterChase(strip.Color(250, 250, 250), 50);      // White, half brightness
-    theaterChase(strip.Color(250,   0,   0), 50);      // Red, half brightness
-    theaterChase(strip.Color(  0,   0, 250), 50);     // Blue, half brightness
-    manualOff();
-
+    MOTIONSTART = std::chrono::steady_clock::now();
+    if (!MOTIONDETECT){
+      MOTIONDETECT = 1;
+      floodLight(10);
+    }
   }
-  delay(200);
- 
   
+  if (MOTIONDETECT) {
+    auto nowtime = std::chrono::steady_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::seconds>(nowtime - MOTIONSTART);
+    if (duration > MOTIONTIMELIMIT){
+      MOTIONDETECT = 0;
+      manualOff();
+    }
+  }
 }
 
+  //floodLight(10);
+    // mylcd.print("MOTION!");
+    // theaterChase(strip.Color(250, 250, 250), 50);      // White, half brightness
+    // theaterChase(strip.Color(250,   0,   0), 50);      // Red, half brightness
+    // theaterChase(strip.Color(  0,   0, 250), 50);     // Blue, half brightness
+//     manualOff();
+
+//   }
+
+// }
 
 void colorWipe(uint32_t color, int wait) {
   for(int i=0; i<strip.numPixels(); i++) {           // For each pixel in strip...
@@ -108,11 +94,11 @@ void floodLight (int waitsec){
 }
   strip.show();
   Serial.println("starting 10 second delay");
-  delay(waitsec * 1000);
-  Serial.println("10 second delay compleate! :)");
-  strip.clear();
-  strip.show();
-  Serial.print("all lights are off");
+  //delay(waitsec * 1000);
+  // Serial.println("10 second delay compleate! :)");
+  // strip.clear();
+  // strip.show();
+  // Serial.print("all lights are off");
 }
 
 void manualOff(){
@@ -122,13 +108,3 @@ mylcd.clear();
  }  
  strip.show();
 }
-
-
-
-
-
-
-
-
-
-
