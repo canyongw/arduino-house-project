@@ -3,7 +3,7 @@
 
 auto MOTIONSTART = std::chrono::steady_clock::now();
 boolean MOTIONDETECT = 0;
-const auto MOTIONTIMELIMIT = std::chrono::seconds(10);
+const auto MOTIONTIMELIMIT = std::chrono::seconds(1);
 
 void detectMotion(){
   boolean pyroelectric_val = digitalRead(motion_pin);
@@ -11,7 +11,7 @@ void detectMotion(){
     MOTIONSTART = std::chrono::steady_clock::now();
     if (!MOTIONDETECT){
       MOTIONDETECT = 1;
-      floodLight(10);
+      floodLight(1);
     }
   }
   
