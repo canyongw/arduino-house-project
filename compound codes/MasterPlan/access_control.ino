@@ -5,10 +5,10 @@ void readCard(){
 if ( ! mfrc522.PICC_IsNewCardPresent() || ! mfrc522.PICC_ReadCardSerial() ) {
     delay(50);
     password = "";
-    if(btnFlag == 1)
+    if(doorbtnFlag == 1)
     {
-      boolean btnVal = digitalRead(btnPin);
-      if(btnVal == 0)  //If door close button is pressed (active-low)
+      boolean doorbtnVal = digitalRead(doorbtnPin);
+      if(doorbtnVal == 0)  //If door close button is pressed (active-low)
       {
         mylcd.clear();
         Serial.println("close");
@@ -16,7 +16,7 @@ if ( ! mfrc522.PICC_IsNewCardPresent() || ! mfrc522.PICC_ReadCardSerial() ) {
         mylcd.print("closed");
         //mylcd.clear(): work on this at later date.
         doorservo.write(0);
-        btnFlag = 0;
+        doorbtnFlag = 0;
       }
     }
     return;
@@ -49,7 +49,7 @@ if ( ! mfrc522.PICC_IsNewCardPresent() || ! mfrc522.PICC_ReadCardSerial() ) {
     //Serial.println(password);
     doorservo.write(180);
     password = "";
-    btnFlag = 1;
+    doorbtnFlag = 1;
   }
   else   //Card number error,dispaly error
   {

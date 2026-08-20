@@ -17,7 +17,7 @@ Servo doorservo;
 
 Servo windowservo;
 
-#include "MFRC522_I2C.h"
+#include "MFRC522_I2C.h" 
 
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
@@ -31,13 +31,23 @@ BuzzerESP32 buzzer(BUZZER_PIN);
 // 0x28 is the i2c address of SDA, if doesn't match，please check your address with i2c.
 MFRC522_I2C mfrc522(0x28, -1); //Pass Wire object and address
 #define doorservoPin  13
-#define btnPin 16
-boolean btnFlag = 0;
+#define doorbtnPin 16 //doorbtn is door
+boolean doorbtnFlag = 0;
+
+#define tempbtnPin 27
+boolean tempbtnFlag = 0;
+
 
 #define motion_pin 14
 #define LED_PIN    26                                // Which pin on the Arduino is connected to the NeoPixels?
 #define LED_COUNT 4
 Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800); 
+
+#include <dht11.h>
+
+// Define the pin constants
+const int DHT11PIN = 17; // Temperature and humidity sensor pin
+dht11 DHT11; // Initialize dht11
 
 String password = "";
 
@@ -83,6 +93,7 @@ void loop() {
    readCard();
    detectMotion();
    detectWater();
+   tempCheck();
    delay (200);
   
 }
