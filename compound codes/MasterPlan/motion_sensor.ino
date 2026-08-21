@@ -13,6 +13,7 @@ void detectMotion(){
       MOTIONDETECT = 1;
       floodLight(1);
     }
+
   }
   
   if (MOTIONDETECT) {

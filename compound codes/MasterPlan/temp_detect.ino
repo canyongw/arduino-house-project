@@ -33,9 +33,14 @@ void tempExecute(){
   
   // Read button (Inverted logic because of INPUT_PULLUP)
   tempCurrentStatus = (digitalRead(tempbtnPin) == LOW);
-
-  // Check for the exact moment the button is freshly pressed
-  if (tempCurrentStatus && !tempbtnFlag) {
+  //   if (tempCurrentStatus) {
+  // Serial.println("btn is pressed-true");
+  // }
+  // if (tempbtnFlag) {
+  // Serial.println("Previous run Flag is true-1");
+  // }
+    // Check for the exact moment the button is freshly pressed
+  if (!tempCurrentStatus && tempbtnFlag) {
     clearlcd(mylcd); // Clears the screen EXACTLY ONCE
     Serial.println("clear screen hit");
     
