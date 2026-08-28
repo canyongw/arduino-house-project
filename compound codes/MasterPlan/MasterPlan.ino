@@ -1,4 +1,10 @@
 
+#include <BuzzerESP32.h>
+#define buzPin 25
+#define BUZZER_PIN   25
+BuzzerESP32 buzzer(BUZZER_PIN);
+
+
 
 #define led_y 12
 #define fanPin1 19
@@ -10,7 +16,6 @@
 
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
-#include <BuzzerESP32.h>
 LiquidCrystal_I2C mylcd(0x27,16,2);
 #include <ESP32Servo.h>
 Servo doorservo;
@@ -24,8 +29,8 @@ Servo windowservo;
  #include <avr/power.h> 
 #endif
 
-#define BUZZER_PIN   25
-BuzzerESP32 buzzer(BUZZER_PIN);
+
+
 
 // IIC pins default to GPIO21 and GPIO22 of ESP32
 // 0x28 is the i2c address of SDA, if doesn't match，please check your address with i2c.
@@ -45,6 +50,13 @@ Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 #include <dht11.h>
 
+#define gasPin 23  
+
+boolean dangerDisplayed = 1;
+boolean safetyDisplayed = 1;
+
+
+
 // Define the pin constants
 const int DHT11PIN = 17; // Temperature and humidity sensor pin
 dht11 DHT11; // Initialize dht11
@@ -52,13 +64,18 @@ dht11 DHT11; // Initialize dht11
 String password = "";
 
 void setup() {
-  Serial.begin(9600);           // initialize and PC's serial communication
+  Serial.begin(9600); 
+  
+  pinMode(gasPin, INPUT);
+  
+  pinMode(buzPin, OUTPUT);
+  
   pinMode(waterPin, INPUT);
   mylcd.init();
   mylcd.backlight();
   Wire.begin();                   // initialize I2C
   mfrc522.PCD_Init();             // initialize MFRC522
-  ShowReaderDetails();            // dispaly PCD - MFRC522 read carder
+  //ShowReaderDetails();            // dispaly PCD - MFRC522 read carder
   Serial.println(F("Scan PICC to see UID, type, and data blocks..."));
 
     // Allow allocation of all timers
@@ -85,7 +102,9 @@ void setup() {
 #endif
   strip.begin();                                     // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();                                      // Turn OFF all pixels ASAP
-  strip.setBrightness(250);     
+  strip.setBrightness(250); 
+
+  buzzer.setTimbre(30);
 }
 
 void loop() {
@@ -93,8 +112,5 @@ void loop() {
    readCard();
    detectMotion();
    detectWater();
-   tempCheck();
-   delay (200);
-  
-}
-
+   detectGas();
+   tempChe

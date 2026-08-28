@@ -3,7 +3,7 @@
 
 void readCard(){
 if ( ! mfrc522.PICC_IsNewCardPresent() || ! mfrc522.PICC_ReadCardSerial() ) {
-    delay(50);
+    //delay(50);
     password = "";
     if(doorbtnFlag == 1)
     {
