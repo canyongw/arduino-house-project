@@ -113,4 +113,4 @@ void loop() {
    detectMotion();
    detectWater();
    detectGas();
-   tempChe
+   tempCheck();
