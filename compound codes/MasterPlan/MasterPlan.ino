@@ -1,8 +1,7 @@
 
 #include <BuzzerESP32.h>
 #define buzPin 25
-#define BUZZER_PIN   25
-BuzzerESP32 buzzer(BUZZER_PIN);
+BuzzerESP32 buzzer(buzPin);
 
 
 
@@ -114,3 +113,12 @@ void loop() {
    detectWater();
    detectGas();
    tempCheck();
+}
+
+
+
+
+
+
+
+

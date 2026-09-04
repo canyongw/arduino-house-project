@@ -2,7 +2,7 @@
 
 void detectWater() {
  int water_val = analogRead(waterPin);
-  Serial.println(water_val);
+  //Serial.println(water_val);
   if(water_val > 1500) { // if it is "raining"
     windowservo.write(0);
     analogWrite(led_y, 255);

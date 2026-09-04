@@ -1,7 +1,7 @@
 
 void detectGas(){
   boolean gasVal = digitalRead(gasPin);  // Read gas sensor value
-  Serial.println(gasVal);
+  //Serial.println(gasVal);
 
   if(gasVal == 0)  // If dangerous gas detected
   {
@@ -14,14 +14,15 @@ void detectGas(){
       safetyDisplayed = 1;
     }
 
-    // Sound alarm buzzer (short pulses)
-    // digitalWrite(buzPin, HIGH);
-    // delay(100);
-    // digitalWrite(buzPin, LOW);
-    // delay(100);
+      // Sound alarm buzzer (short pulses)
+      // digitalWrite(buzPin, HIGH);
+      // delay(100);
+      // digitalWrite(buzPin, LOW);
+      // delay(100);
 
-    buzzer.playTone(590, 500);
-    buzzer.playTone(300, 500);
+    buzzer.playTone(525, 500);
+    buzzer.playTone(660, 500);
+    Serial.println("noise should have been played by now");
   }
   else  // No dangerous gas detected
   {

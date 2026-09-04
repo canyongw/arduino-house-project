@@ -42,7 +42,7 @@ void tempExecute(){
     // Check for the exact moment the button is freshly pressed
   if (!tempCurrentStatus && tempbtnFlag) {
     clearlcd(mylcd); // Clears the screen EXACTLY ONCE
-    Serial.println("clear screen hit");
+    //Serial.println("clear screen hit");
     
   }
   

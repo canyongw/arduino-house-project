@@ -11,7 +11,7 @@ if ( ! mfrc522.PICC_IsNewCardPresent() || ! mfrc522.PICC_ReadCardSerial() ) {
       if(doorbtnVal == 0)  //If door close button is pressed (active-low)
       {
         mylcd.clear();
-        Serial.println("close");
+        //Serial.println("close");
         mylcd.setCursor(0, 0);
         mylcd.print("closed");
         //mylcd.clear(): work on this at later date.

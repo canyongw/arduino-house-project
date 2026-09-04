@@ -91,10 +91,10 @@ void floodLight (int waitsec){
   strip.clear(); // 
  for (int i=0; i<strip.numPixels(); i++) {
   strip.setPixelColor(i, strip.Color(255, 255, 255));
-  Serial.println("lights are on");
+  //Serial.println("lights are on");
 }
   strip.show();
-  Serial.println("starting 10 second delay");
+  //Serial.println("starting 10 second delay");
   //delay(waitsec * 1000);
   // Serial.println("10 second delay compleate! :)");
   // strip.clear();
