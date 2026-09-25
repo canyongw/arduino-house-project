@@ -21,12 +21,24 @@
 WiFiClient basic_client;
 ESP_SSLClient ssl_client;
 
-const char* ssid = "livingwater";
-const char* password = "1John316";
+// RC4 ciphertext produced by utilities/cryptology on the author's specific
+// ESP32 (chip-locked via eFuse MAC salt). Replace these placeholders with the
+// encrypted output printed by that tool. These placeholders are NOT real secrets.
+String encryptedSSID = "REPLACE_WITH_CIPHERTEXT";
+String encryptedPassword = "REPLACE_WITH_CIPHERTEXT";
 
 void setup() {
   Serial.begin(9600);
-  WiFi.begin(ssid, password);
+
+  // Derive the device-locked salt from the ESP32 eFuse MAC, then decrypt the
+  // stored ciphertext credentials at runtime. RC4 is symmetric, so runRC4()
+  // recovers the plaintext when given the same salt used to encrypt.
+  String salt = generateSalt();
+  String ssid = runRC4(encryptedSSID, salt);
+  String password = runRC4(encryptedPassword, salt);
+
+  // WiFi.begin expects const char*, so pass the decrypted Strings via c_str().
+  WiFi.begin(ssid.c_str(), password.c_str());
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
