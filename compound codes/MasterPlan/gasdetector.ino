@@ -1,41 +1,50 @@
 
-void detectGas(){
-  boolean gasVal = digitalRead(gasPin);  // Read gas sensor value
-  //Serial.println(gasVal);
+// A passive buzzer only makes a tone when driven with an oscillating waveform.
+// Holding buzPin with digitalWrite jerks the piezo once per edge -> the "blinker
+// tick" and choked squeal. Drive it through BuzzerESP32 (the same blocking
+// playTone path the song player uses) and warble two audible pitches for an alarm.
+const uint16_t GAS_TONE_HIGH = (uint16_t)880;  // Hz (A5), high warble pitch
+const uint16_t GAS_TONE_LOW  = (uint16_t)698;  // Hz (F5), low warble pitch
+ const uint32_t GAS_TONE_MS   = 250;  // length of each warble half-step
+boolean gasSirenHigh = 0;
 
-  if(gasVal == 0)  // If dangerous gas detected
+void gasSirenStep(){
+  gasSirenHigh = !gasSirenHigh;
+  buzzer.playTone(gasSirenHigh ? GAS_TONE_HIGH : GAS_TONE_LOW, GAS_TONE_MS);
+  Serial.println("noise has been played or should have been played");
+  Serial.print("Tone Requested: ");
+  Serial.println(gasSirenHigh ? GAS_TONE_HIGH : GAS_TONE_LOW);
+  Serial.print("GAS_TONE_MS: ");
+  Serial.println(GAS_TONE_MS);
+}
+
+void detectGas(){
+  boolean gasVal = digitalRead(gasPin);  // active-low: 0 == dangerous gas detected
+  Serial.println(gasVal);
+
+  if(gasVal == 0)  // dangerous gas present
   {
-    while(dangerDisplayed == 1)  // Update display if needed
+    if(!GASDANGER)  // rising edge: seize the LCD exactly once and lock out other tools
     {
+      GASDANGER = 1;
       mylcd.clear();
       mylcd.setCursor(0, 0);
       mylcd.print("dangerous");
-      dangerDisplayed = 0;
-      safetyDisplayed = 1;
     }
-
-      // Sound alarm buzzer (short pulses)
-      // digitalWrite(buzPin, HIGH);
-      // delay(100);
-      // digitalWrite(buzPin, LOW);
-      // delay(100);
-
-    buzzer.playTone(525, 500);
-    buzzer.playTone(660, 500);
-    Serial.println("noise should have been played by now");
+    gasSirenStep();  // warble the alarm through the buzzer library
   }
-  else  // No dangerous gas detected
+  else  // air is clear
   {
-    buzzer.stop();
-
-    while(safetyDisplayed == 1)  // Update display if needed
+    if(GASDANGER)  // falling edge: silence the siren and release the lock exactly once
     {
+      GASDANGER = 0;
+      buzzer.stop();
+      gasSirenHigh = 0;
       mylcd.clear();
       mylcd.setCursor(0, 0);
       mylcd.print("safety");
-      dangerDisplayed = 1;
-      safetyDisplayed = 0;
     }
   }
 }
 
+ 

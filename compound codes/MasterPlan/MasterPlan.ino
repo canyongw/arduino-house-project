@@ -51,10 +51,10 @@ Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 #define gasPin 23  
 
-boolean dangerDisplayed = 1;
-boolean safetyDisplayed = 1;
+// boolean dangerDisplayed = 1;
+// boolean safetyDisplayed = 1;
 
-
+boolean GASDANGER = 0;   // shared priority lock: true while dangerous gas is present. Other tools must not touch buzzer/LCD while set.
 
 // Define the pin constants
 const int DHT11PIN = 17; // Temperature and humidity sensor pin
@@ -67,7 +67,7 @@ void setup() {
   
   pinMode(gasPin, INPUT);
   
-  pinMode(buzPin, OUTPUT);
+  //pinMode(buzPin, OUTPUT);
   
   pinMode(waterPin, INPUT);
   mylcd.init();
@@ -82,7 +82,8 @@ void setup() {
     ESP32PWM::allocateTimer(1);
     ESP32PWM::allocateTimer(2);
     ESP32PWM::allocateTimer(3);
-    doorservo.setPeriodHertz(50);    // standard 50 hz servo
+    doorservo.setPeriodHertz(50);    // standar
+d 50 hz servo
     doorservo.attach(doorservoPin, 1000, 2000); // attaches the servo on pin 18 to the servo object
 
     windowservo.setPeriodHertz(50);    // standard 50 hz servo
@@ -98,12 +99,12 @@ void setup() {
     pinMode(motion_pin, INPUT);//motion pin
 #if defined(__AVR_ATtiny85__) && (F_CPU == 16000000)
   clock_prescale_set(clock_div_1);                   // These lines are specifically to support the Adafruit Trinket 5V 16 MHz.
-#endif
+#endif                                        
   strip.begin();                                     // INITIALIZE NeoPixel strip object (REQUIRED)
   strip.show();                                      // Turn OFF all pixels ASAP
-  strip.setBrightness(250); 
+  strip.setBrightness(250);                  
 
-  buzzer.setTimbre(30);
+  //buzzer.setTimbre(30);
 }
 
 void loop() {
