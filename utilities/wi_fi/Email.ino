@@ -19,12 +19,12 @@
 #define SMTP_PORT 587
 
 // Sender email, app password, and name
-#define AUTHOR_EMAIL "canyon_esp32_house@caddog.net"
-#define AUTHOR_APP_PASS "your4expanseSpluspositrons1$"
+#define AUTHOR_EMAIL "blackhole@caddog.net"
+#define AUTHOR_APP_PASS "garbelygook"
 #define AUTHOR_NAME "ESP32"
 
 //Recipient's email
-#define RECIPIENT_EMAIL "canyongw@outlook.com"
+#define RECIPIENT_EMAIL "somebody@outlook.com"
 #define RECIPIENT_NAME "RECIPIENT_NAME"
 
 //WiFiClientSecure ssl_client;
