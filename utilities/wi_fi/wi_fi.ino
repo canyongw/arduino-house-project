@@ -1,4 +1,4 @@
-#define SSLCLIENT_HALF_DUPLEX 
+#define SSLCLIENT_HALF_DUPLEX
 #define STATIC_IN_BUFFER_SIZE 2048
 #define STATIC_OUT_BUFFER_SIZE 512
 #include <ESP_SSLClient.h>
@@ -7,6 +7,15 @@
 
 
 #include <WiFi.h>
+
+// ReadyMail is enabled and included here (the folder-named .ino, which Arduino
+// compiles first) so that its types (SMTPStatus, SMTPClient, etc.) are declared
+// before Arduino auto-generates function prototypes for the other .ino files.
+// Without this, the auto-prototype for smtpStatusCallback(SMTPStatus) in
+// Email.ino would reference SMTPStatus before ReadyMail.h is seen.
+#define ENABLE_SMTP
+#define ENABLE_DEBUG
+#include <ReadyMail.h>
 
 
 WiFiClient basic_client;

@@ -2,6 +2,11 @@
 
 
 
+// NOTE: ReadyMail is first enabled and included in wi_fi.ino (compiled first) so
+// that its types are visible to Arduino's auto-generated function prototypes.
+// The lines below are kept for clarity; the #include is guarded (#ifndef
+// READYMAIL_H) so it is a harmless no-op here, and re-defining these empty
+// macros is also harmless.
 #define ENABLE_SMTP
 #define ENABLE_DEBUG
 #include <ReadyMail.h>
@@ -38,11 +43,11 @@ SMTPClient smtp(ssl_client,
 void send_test_mail(){
     ssl_client.setClient(&basic_client, false); // Link the raw socket; keep SSL off initially
     ssl_client.setInsecure();
-    // auto statusCallback = [](SMTPStatus status) {
-    // Serial.println(status.text);
-    // };
 
-  smtp.connect(SMTP_HOST, SMTP_PORT, statusCallback);
+  // Pass the status callback (defined below) and ssl=false so the socket starts
+  // in plain text; ReadyMail then issues STARTTLS and runs the TLS handshake
+  // callback to upgrade the connection on port 587.
+  smtp.connect(SMTP_HOST, SMTP_PORT, smtpStatusCallback, false);
 
   if (smtp.isConnected()) {
     smtp.authenticate(AUTHOR_EMAIL, AUTHOR_APP_PASS, readymail_auth_password);
@@ -70,8 +75,8 @@ void send_test_mail(){
         Serial.println("Email Send Failed.");
       }
       
-      // Clean connection close
-      smtp.send("QUIT");
+      // Clean connection close (ReadyMail sends the SMTP QUIT command)
+      smtp.logout();
     } else {
       Serial.println("Authentication Failed.");
     }
